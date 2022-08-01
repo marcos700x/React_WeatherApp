@@ -9,7 +9,7 @@ export default function App() {
 
   const [baseLocation, setBaseLocation] = useState('Mexico');
   const API_KEY = '6f5b0ea7cea44e93b1032505220108';
-  const BASE_URL = `http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${baseLocation}`;
+  const BASE_URL = `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${baseLocation}`;
   const [query, setQuery] = useState('');
   const [api, setApi] = useState();
   const date = new Date()
