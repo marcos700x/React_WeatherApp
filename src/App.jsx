@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import axios from 'axios';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -10,7 +10,7 @@ export default function App() {
   const [baseLocation, setBaseLocation] = useState('Mexico');
   const API_KEY = '6f5b0ea7cea44e93b1032505220108';
   const BASE_URL = `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${baseLocation}`;
-  const [query, setQuery] = useState('');
+  const inputQuery = useRef(null)
   const [api, setApi] = useState();
   const date = new Date()
 
@@ -23,11 +23,9 @@ export default function App() {
 
 const handleSubmit = (e) => {
   e.preventDefault()
-  setBaseLocation(query)
+  setBaseLocation(inputQuery.current.value)
 }
-const handleChange = (e) => {
-setQuery(e.target.value)
-}
+
 
 if(!api) return
 
@@ -37,8 +35,8 @@ if(!api) return
         <ContenedorBuscador>
             <h1>Ingresa tu ubicación</h1>
               <form className='contenedorInput' onSubmit={handleSubmit}>
-              <Form.Control type='text' placeholder='Busca tu ciudad o localidad' onChange={handleChange}/>
-              <Button variant='primary' onClick={handleSubmit}>Buscar</Button>
+              <Form.Control type='text' placeholder='Busca tu ciudad o localidad' ref={inputQuery}/>
+              <Button variant='primary'  onClick={handleSubmit}>Buscar</Button>
               </form>
         </ContenedorBuscador>
       <ContenedorInfo>
